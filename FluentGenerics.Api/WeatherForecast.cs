@@ -1,13 +1,10 @@
-﻿
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+﻿namespace FluentGenerics.Api;
 
-
-// Configure the HTTP request pipeline.
-
-
-
-public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public record WeatherForecast(
+	DateOnly Date,
+	int TemperatureC,
+	string? Summary,
+	string? City)
 {
 	public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

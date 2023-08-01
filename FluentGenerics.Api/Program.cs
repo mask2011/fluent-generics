@@ -1,4 +1,4 @@
-﻿using FluentGenerics.Api;
+﻿using FluentGenerics.Api.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<WeatherForecastHandler>();
+builder.Services.AddScoped<CityForecastHandler>();
 
 var app = builder.Build();
 
@@ -24,6 +25,12 @@ app.MapGet("/weatherforecast",
 	async (WeatherForecastHandler handler, CancellationToken ct) =>
 		await handler.ExecuteAsync(ct))
 .WithName("GetWeatherForecast")
+.WithOpenApi();
+
+app.MapGet("/city-weatherforecast/{city}",
+	async (string city, CityForecastHandler handler, CancellationToken ct) =>
+		await handler.ExecuteAsync(city, ct))
+.WithName("GetCityForecast")
 .WithOpenApi();
 
 app.Run();

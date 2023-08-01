@@ -1,6 +1,4 @@
-﻿using FluentGenerics.Api.HandlerGenerics;
-
-namespace FluentGenerics.Api;
+﻿namespace FluentGenerics.Api.Handlers;
 
 public class WeatherForecastHandler : Handler
 	.WithoutRequest
@@ -14,11 +12,18 @@ public class WeatherForecastHandler : Handler
 			"Scorching"
 		};
 
+		var cities = new[]
+		{
+			"London", "Paris", "Berlin", "New York", "Tokyo", "Moscow", "Madrid", "Rome", "Athens",
+			"Amsterdam"
+		};
+
 		var forecast = Enumerable.Range(1, 5).Select(index =>
 			new WeatherForecast(
 				DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
 				Random.Shared.Next(-20, 55),
-				summaries[Random.Shared.Next(summaries.Length)]))
+				summaries[Random.Shared.Next(summaries.Length)],
+				cities[Random.Shared.Next(cities.Length)]))
 			.ToArray();
 
 		return Task.FromResult(forecast);

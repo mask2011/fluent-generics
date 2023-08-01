@@ -1,4 +1,4 @@
-﻿namespace FluentGenerics.Api.HandlerGenerics;
+﻿namespace FluentGenerics.Api.Handlers;
 
 public static class Handler
 {

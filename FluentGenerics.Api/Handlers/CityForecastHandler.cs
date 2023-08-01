@@ -8,31 +8,19 @@ public class CityForecastHandler : Handler
 		string city,
 		CancellationToken ct = default)
 	{
-		var summaries = new[]
-		{
-			"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering",
-			"Scorching"
-		};
-
-		var cities = new[]
-{
-			"London", "Paris", "Berlin", "New York", "Tokyo", "Moscow", "Madrid", "Rome", "Athens",
-			"Amsterdam"
-		};
-
-		if (!cities.Contains(city))
+		if (!Lookups.Cities.Contains(city))
 		{
 			throw new ArgumentException("City not found", nameof(city));
 		}
 
-		var forecast = Enumerable.Range(1, 5).Select(index =>
+		var forecasts = Enumerable.Range(1, 5).Select(index =>
 			new WeatherForecast(
 				DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
 				Random.Shared.Next(-20, 55),
-				summaries[Random.Shared.Next(summaries.Length)],
+				Lookups.Summaries[Random.Shared.Next(Lookups.Summaries.Count)],
 				city))
 			.ToArray();
 
-		return Task.FromResult(forecast);
+		return Task.FromResult(forecasts);
 	}
 }
